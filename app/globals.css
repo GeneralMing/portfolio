@@ -1,0 +1,181 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 4%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 25% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 25% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 264 62% 64%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 341 90% 67%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 187 92% 69%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 264 62% 64%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Pixelated font effect */
+@font-face {
+  font-family: "Pixel";
+  src: url("/fonts/pixel.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.pixel-font {
+  font-family: "Pixel", monospace;
+  letter-spacing: 1px;
+}
+
+.retro-shadow {
+  text-shadow: 0.1em 0.1em 0 hsl(var(--secondary));
+}
+
+.retro-glow {
+  text-shadow: 0 0 5px hsl(var(--primary)), 0 0 10px hsl(var(--primary)), 0 0 15px hsl(var(--primary));
+}
+
+.terminal {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid hsl(var(--primary));
+  box-shadow: 0 0 10px hsl(var(--primary)), inset 0 0 10px hsl(var(--primary));
+  padding: 1rem;
+  border-radius: 5px;
+  font-family: "Courier New", monospace;
+  position: relative;
+}
+
+.terminal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, hsla(var(--primary), 0.5), transparent);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0.75;
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+.grid-background {
+  background-image: linear-gradient(rgba(25, 23, 36, 0.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 23, 36, 0.8) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: center center;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 hsl(var(--secondary));
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 hsl(var(--accent));
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(11px, 9999px, 68px, 0);
+  }
+  20% {
+    clip: rect(62px, 9999px, 73px, 0);
+  }
+  40% {
+    clip: rect(94px, 9999px, 6px, 0);
+  }
+  60% {
+    clip: rect(59px, 9999px, 48px, 0);
+  }
+  80% {
+    clip: rect(56px, 9999px, 78px, 0);
+  }
+  100% {
+    clip: rect(24px, 9999px, 67px, 0);
+  }
+}
